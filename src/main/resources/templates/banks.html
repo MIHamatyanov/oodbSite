@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" style="overflow: auto">
+<head>
+    <meta charset="UTF-8">
+    <title>Банки</title>
+</head>
+<body>
+<ul style="display: flex; list-style: none">
+    <li style="margin-left: 10px;">
+        <a href="/banks" style="pointer-events: none; cursor: default; text-decoration: none; color: black;">Банки</a>
+    </li>
+    <li style="margin-left: 10px">
+        <a href="/workers">Работники</a>
+    </li>
+    <li style="margin-left: 10px">
+        <a href="/clients">Клиенты</a>
+    </li>
+    <li style="margin-left: 10px">
+        <a href="/accounts">Счета</a>
+    </li>
+</ul>
+
+<table>
+    <tr>
+        <th>id</th>
+        <th>Название</th>
+    </tr>
+    <tr th:each="bank : ${banks}">
+        <td th:text="${bank.id}"></td>
+        <td th:text="${bank.name}"></td>
+    </tr>
+</table>
+
+<h4>Добавить банк</h4>
+<form action="/banks" method="post">
+    <label>
+        <input type="text" placeholder="Название банка" name="name">
+    </label>
+    <input type="submit" value="Добавить">
+</form>
+</body>
+</html>

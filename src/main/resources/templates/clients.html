@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" style="overflow: auto">
+<head>
+    <meta charset="UTF-8">
+    <title>Клиенты</title>
+</head>
+<body>
+<ul style="display: flex; list-style: none">
+    <li style="margin-left: 10px;">
+        <a href="/banks">Банки</a>
+    </li>
+    <li style="margin-left: 10px">
+        <a href="/workers">Работники</a>
+    </li>
+    <li style="margin-left: 10px">
+        <a href="/clients"
+           style="pointer-events: none; cursor: default; text-decoration: none; color: black;">Клиенты</a>
+    </li>
+    <li style="margin-left: 10px">
+        <a href="/accounts">Счета</a>
+    </li>
+</ul>
+
+<form action="/clients" method="get">
+    <label for="bankName">Выберите банк </label>
+    <select name="bankName" id="bankName">
+        <option th:each="bank : ${banks}" th:value="${bank.name}" th:text="${bank.name}"
+                th:selected="${bank.name} == ${bankName}"></option>
+    </select>
+    <input type="submit" value="Выбрать">
+</form>
+
+<table>
+    <tr>
+        <th>id</th>
+        <th>Email</th>
+        <th>Фамилия</th>
+        <th>Имя</th>
+        <th>Номер телефона</th>
+    </tr>
+    <tr th:each="client : ${clients}">
+        <td th:text="${client.id}"></td>
+        <td th:text="${client.email}"></td>
+        <td th:text="${client.firstName}"></td>
+        <td th:text="${client.lastName}"></td>
+        <td th:text="${client.phoneNumber}"></td>
+    </tr>
+</table>
+
+<h4>Добавить клиента</h4>
+<form action="/clients" method="post">
+    <table>
+        <tr>
+            <td>Банк</td>
+            <td>
+                <input type="text" th:value="${bankName}" name="bankName">
+            </td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td>
+                <input type="text" name="email">
+            </td>
+        </tr>
+        <tr>
+            <td>Фамилия</td>
+            <td>
+                <input type="text" name="firstName">
+            </td>
+        </tr>
+        <tr>
+            <td>Имя</td>
+            <td>
+                <input type="text" name="lastName">
+            </td>
+        </tr>
+        <tr>
+            <td>Номер телефона</td>
+            <td>
+                <input type="text" name="phoneNumber">
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Добавить">
+</form>
+</body>
+</html>

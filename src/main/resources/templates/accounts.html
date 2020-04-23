@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" style="overflow: auto">
+<head>
+    <meta charset="UTF-8">
+    <title>Клиенты</title>
+</head>
+<body>
+<ul style="display: flex; list-style: none">
+    <li style="margin-left: 10px;">
+        <a href="/banks">Банки</a>
+    </li>
+    <li style="margin-left: 10px">
+        <a href="/workers">Работники</a>
+    </li>
+    <li style="margin-left: 10px">
+        <a href="/clients">Клиенты</a>
+    </li>
+    <li style="margin-left: 10px">
+        <a href="/accounts"
+           style="pointer-events: none; cursor: default; text-decoration: none; color: black;">Счета</a>
+    </li>
+</ul>
+
+<form action="/accounts" method="get">
+    <label for="bankName">Выберите банк </label>
+    <select name="bankName" id="bankName">
+        <option th:each="bank : ${banks}" th:value="${bank.name}" th:text="${bank.name}"
+                th:selected="${bank.name} == ${bankName}"></option>
+    </select>
+    <input type="submit" value="Выбрать">
+</form>
+
+<form action="/accounts" method="get">
+    <label for="clientId">Выберите клиента </label>
+    <select name="clientId" id="clientId">
+        <option th:each="client : ${clients}" th:value="${client.id}" th:text="${client.id}"
+                th:selected="${client.id} == ${clientId}"></option>
+    </select>
+    <input type="hidden" th:value="${bankName}" name="bankName">
+    <input type="submit" value="Выбрать">
+</form>
+
+<table>
+    <tr>
+        <th>id</th>
+        <th>Номер счета</th>
+        <th>Баланс</th>
+    </tr>
+    <tr th:each="account : ${accounts}">
+        <td th:text="${account.id}"></td>
+        <td th:text="${account.accountNumber}"></td>
+        <td th:text="${account.balance}"></td>
+    </tr>
+</table>
+
+<h4>Добавить счет</h4>
+<form action="/accounts" method="post">
+    <table>
+        <tr>
+            <td>Банк</td>
+            <td>
+                <input type="text" th:value="${bankName}" name="bankName">
+            </td>
+        </tr>
+        <tr>
+            <td>id клиента</td>
+            <td>
+                <input type="text" th:value="${clientId}" name="clientId">
+            </td>
+        </tr>
+        <tr>
+            <td>Номер счета</td>
+            <td>
+                <input type="text" name="accountNumber">
+            </td>
+        </tr>
+        <tr>
+            <td>Баланс</td>
+            <td>
+                <input type="text" name="balance">
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Добавить">
+</form>
+</body>
+</html>
